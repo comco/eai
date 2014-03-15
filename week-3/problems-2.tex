@@ -1,0 +1,95 @@
+\documentclass[a4paper]{scrartcl}
+
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[bulgarian]{babel}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{multicol}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
+\newcommand{\langdef}[5] { % {L}{w}{alphabet}{w math}{text} 
+    \ensuremath{#1 = \left\{ #2 \in \{#3\}^* \mid #4 \right.} #5\ensuremath{\}.} 
+}
+
+\newcommand{\emptyw} {\epsilon}
+
+\newcommand{\harder}{\emph{(по-трудна)}}
+
+\newcommand{\state}[1]{ & #1 & }
+\newcommand{\start}[1]{\to & #1 & }
+\newcommand{\accep}[1]{ & #1 & {}^* }
+\newcommand{\stacc}[1]{\to & #1 & {}^* }
+
+\title{Задачки-закачки 2}
+\subtitle{ЕАИ-упражнения, групи 2 и 3}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{enumerate} 
+
+    \section*{детерминирани крайни автомати}
+    
+\item Проверете дали $A$ разпознава празната дума и потърсете по две други думи, които $A$ разпознава и по две думи, които $A$ не разпознава.
+    Напишете регулярен израз за думите, които $A$ разпознава. Допълнете $A$ до тотален, ако не е.
+    \begin{multicols}{2}
+        \raggedright
+        \begin{enumerate}
+            \item \[\begin{array}{|r@{}c@{}l|c|c|c|}
+                        \hline
+                        \state{A} & 0 & 1 \\ \hline
+                        \start{p} & q & r \\ \hline
+                        \state{q} & r & p \\ \hline
+                        \accep{r} & p & q \\ \hline
+                \end{array}\]
+
+            \item \[\begin{array}{|r@{}c@{}l|c|c|c|}
+                        \hline
+                        \state{A} & a & b \\ \hline
+                        \stacc{s} & r & r \\ \hline
+                        \state{q} & q & - \\ \hline
+                        \state{r} & s & q \\ \hline
+                \end{array}\]
+
+            \item \[\begin{array}{|r@{}c@{}l|c|c|c|c|}
+                        \hline
+                        \state{A} & p & q & r \\ \hline
+                        \accep{p} & r & r & - \\ \hline
+                        \accep{q} & q & - & p \\ \hline
+                        \start{r} & p & q & r \\ \hline
+                \end{array}\]
+
+            \item \[\begin{array}{|r@{}c@{}l|c|c|c|c|}
+                        \hline
+                        \state{A} & p & q & r \\ \hline
+                        \accep{p} & - & - & - \\ \hline
+                        \accep{q} & q & - & p \\ \hline
+                        \start{r} & p & - & r \\ \hline
+                \end{array}\]
+
+            \item \[\begin{array}{|r@{}c@{}l|c|c|c|c|}
+                        \hline
+                        \state{A} & p & q & r \\ \hline
+                        \accep{p} & - & - & - \\ \hline
+                        \accep{q} & - & - & - \\ \hline
+                        \start{r} & - & - & - \\ \hline
+                \end{array}\]
+
+            \item 
+                \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
+                    \node[initial,state] (s) {$s$};
+                    \node[state] (p) [above right of=s] {$p$};
+                    \node[state,accepting] (q) [below right of=p] {$q$};
+
+                    \path[->] (s) edge node {$a,b$} (p);
+                \end{tikzpicture}
+        \end{enumerate}
+    \end{multicols}
+
+\end{enumerate}
+
+\end{document}
